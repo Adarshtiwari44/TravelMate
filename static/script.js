@@ -194,3 +194,20 @@ document.addEventListener("keydown", function (event) {
         sendMessage();
     }
 });
+function startPlanning() {
+    const planner = document.getElementById("planner");
+    const input = document.getElementById("userInput");
+
+    if (planner) {
+        planner.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+
+    setTimeout(() => {
+        if (input) {
+            input.focus();
+        }
+    }, 500);
+}
