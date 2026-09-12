@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripMate AI — Your AI Travel Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="page-bg">
+        <div class="bg-overlay"></div>
+        <div class="glow glow-left"></div>
+        <div class="glow glow-right"></div>
+    </div>
+
+    <header class="topbar">
+        <a class="brand-wrap" href="#">
+            <div class="brand-mark">✈</div>
+            <div>
+                <div class="brand-text">TripMate <span>AI</span></div>
+                <div class="brand-tagline">Plan Less. Explore More.</div>
+            </div>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <a class="active" href="#">Home</a>
+            <a href="#discover">Destinations</a>
+            <a href="#planner">Trip Planner</a>
+            <a href="#features">About</a>
+        </nav>
+
+        <button class="nav-cta" type="button"
+                onclick="document.getElementById('userInput').focus();">
+            Start Planning <span>→</span>
+        </button>
+    </header>
+
+    <main class="app-container">
+
+        <section class="hero-section">
+            <div class="hero-copy">
+                <div class="eyebrow">YOUR AI TRAVEL AGENT</div>
+
+                <h1>
+                    Turn Travel Dreams
+                    <br>
+                    Into <span>Real Trips</span>
+                </h1>
+
+                <p>
+                    Get personalized itineraries, best flights, hotel suggestions and
+                    unforgettable experiences — all powered by AI.
+                </p>
+
+                <div id="planner" class="hero-search">
+                    <span class="search-spark">✦</span>
+                    <textarea
+                        id="userInput"
+                        rows="1"
+                        aria-label="Travel request"
+                        placeholder="Where do you want to go? (e.g. Plan a 7 day trip to Thailand under 2 lakhs)"
+                    ></textarea>
+                    <button id="sendBtn" type="button" onclick="sendMessage()" aria-label="Generate travel plan">
+                        <span id="btnText">➤</span>
+                        <span id="btnLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <div class="hero-hints">
+                    <button onclick="setPrompt('Plan a complete 7 days Thailand trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs.')">Thailand</button>
+                    <button onclick="setPrompt('Plan a complete 7 days India trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs.')">India</button>
+                    <button onclick="setPrompt('Plan a 5 days Dubai trip from Dhaka with flights, hotels and sightseeing.')">Dubai</button>
+                    <button onclick="setPrompt('Plan a 7 days Bali trip with flights, hotels and sightseeing.')">Bali</button>
+                </div>
+            </div>
+
+            <div class="floating-sign sign-left">
+                <span>✈</span> Flights
+            </div>
+            <div class="floating-sign sign-hotel">
+                <span>▣</span> Hotels
+            </div>
+            <div class="floating-sign sign-map">
+                <span>⌖</span> Itinerary
+            </div>
+
+            <div class="travel-doodle doodle-right">Good trips<br><strong>better stories</strong> ♡</div>
+            <div class="plane-doodle">✈</div>
+        </section>
+
+        <section id="features" class="service-row">
+            <div class="service-item">
+                <div class="service-icon">⌁</div>
+                <div>
+                    <strong>Flight Search</strong>
+                    <small>Best Deals</small>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">▱</div>
+                <div>
+                    <strong>Hotel Suggestions</strong>
+                    <small>Stay Anywhere</small>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">♧</div>
+                <div>
+                    <strong>Smart Itinerary</strong>
+                    <small>Day by Day</small>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">◈</div>
+                <div>
+                    <strong>Sightseeing</strong>
+                    <small>Explore More</small>
+                </div>
+            </div>
+        </section>
+
+        <section id="discover" class="destinations-section">
+            <div class="section-title">
+                <span></span>
+                <h2>Popular Destinations</h2>
+                <span></span>
+            </div>
+
+            <div class="destination-grid">
+                <button class="destination-card thailand"
+                        onclick="setPrompt('Plan a complete 7 days Thailand trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs.')">
+                    <div class="destination-shade"></div>
+                    <div class="destination-content">
+                        <strong>Thailand</strong>
+                        <small>Beaches & Adventure</small>
+                    </div>
+                </button>
+
+                <button class="destination-card india"
+                        onclick="setPrompt('Plan a complete 7 days India trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs.')">
+                    <div class="destination-shade"></div>
+                    <div class="destination-content">
+                        <strong>India</strong>
+                        <small>Culture & Diversity</small>
+                    </div>
+                </button>
+
+                <button class="destination-card dubai"
+                        onclick="setPrompt('Plan a 5 days Dubai trip from Dhaka with flights, hotels and sightseeing.')">
+                    <div class="destination-shade"></div>
+                    <div class="destination-content">
+                        <strong>Dubai</strong>
+                        <small>Luxury & Modernity</small>
+                    </div>
+                </button>
+
+                <button class="destination-card maldives"
+                        onclick="setPrompt('Plan a 5 days Maldives trip with flights, hotels and sightseeing under 2 lakhs.')">
+                    <div class="destination-shade"></div>
+                    <div class="destination-content">
+                        <strong>Maldives</strong>
+                        <small>Peace & Relaxation</small>
+                    </div>
+                </button>
+
+                <button class="destination-card bali"
+                        onclick="setPrompt('Plan a 7 days Bali trip with flights, hotels and sightseeing.')">
+                    <div class="destination-shade"></div>
+                    <div class="destination-content">
+                        <strong>Bali</strong>
+                        <small>Nature & Spirituality</small>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <section id="resultSection" class="result-section hidden">
+            <div class="result-header">
+                <div>
+                    <div class="result-kicker">✦ YOUR PERSONALIZED PLAN</div>
+                    <h2>Your AI Travel Plan</h2>
+                    <p id="threadInfo">Thread ID: -</p>
+                </div>
+
+                <div class="result-actions">
+                    <button class="copy-btn" type="button" onclick="copyResult()">Copy</button>
+                    <button class="download-btn" type="button" onclick="downloadPDF()">Download PDF</button>
+                </div>
+            </div>
+
+            <div id="pdfContent" class="pdf-content">
+                <h1 class="pdf-title">AI Travel Plan</h1>
+                <div id="resultBox" class="result-box"></div>
+            </div>
+        </section>
+
+        <section id="errorBox" class="error-box hidden"></section>
+    </main>
+
+    <footer>
+        <div class="footer-brand">TripMate <span>AI</span></div>
+        <p>Built with FastAPI · LangGraph · Groq · PostgreSQL · Tavily · AviationStack</p>
+        <div class="footer-line"></div>
+        <small>Adventure awaits.</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
