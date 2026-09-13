@@ -1,12 +1,18 @@
 let currentThreadId = localStorage.getItem("travel_thread_id") || null;
 let latestAnswerMarkdown = "";
 
+function adjustInputHeight(el) {
+    if (!el) return;
+    el.style.height = "auto";
+    const maxHeight = window.innerWidth <= 760 ? 96 : 120;
+    el.style.height = Math.min(el.scrollHeight, maxHeight) + "px";
+}
+
 function setPrompt(text) {
     const input = document.getElementById("userInput");
     input.value = text;
     input.focus();
-    input.style.height = "auto";
-    input.style.height = Math.min(input.scrollHeight, 120) + "px";
+    adjustInputHeight(input);
 }
 
 function setLoading(isLoading) {
@@ -199,8 +205,7 @@ function downloadPDF() {
 const input = document.getElementById("userInput");
 
 input.addEventListener("input", function () {
-    this.style.height = "auto";
-    this.style.height = Math.min(this.scrollHeight, 120) + "px";
+    adjustInputHeight(this);
 });
 
 input.addEventListener("keydown", function (event) {
