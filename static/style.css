@@ -42,6 +42,7 @@ button {
         url("https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=2200&q=88")
         center center / cover no-repeat;
     transform: scale(1.02);
+    overflow: hidden;
 }
 
 .bg-overlay {
@@ -554,6 +555,7 @@ button {
     color: #152a35;
     box-shadow: 0 28px 80px rgba(0,0,0,.30);
     overflow-wrap: anywhere;
+    overflow: hidden;
 }
 
 .result-header {
@@ -616,8 +618,9 @@ button {
     box-sizing: border-box;
     border-radius: 18px;
     padding: 26px;
-    background: #fff;
+    background: #ffffff;
     overflow-wrap: anywhere;
+    overflow: hidden;
 }
 
 .pdf-title {
@@ -635,8 +638,12 @@ button {
     word-break: break-word;
 }
 
-.result-box * {
+.result-box img,
+.result-box video,
+.result-box iframe,
+.result-box svg {
     max-width: 100%;
+    height: auto;
 }
 
 .result-box h1,
@@ -742,7 +749,8 @@ button {
     margin: 15px 0;
     border: 1px solid #dce7e9;
     border-radius: 12px;
-    background: #f9fbfc;
+    background: #ffffff;
+    contain: paint;
 }
 
 .result-box table {
@@ -751,16 +759,18 @@ button {
     max-width: none;
     border-collapse: collapse;
     margin: 0;
+    background: #ffffff;
 }
 
 .result-box th,
 .result-box td {
     border: 1px solid #dce7e9;
-    padding: 9px;
+    padding: 9px 12px;
     text-align: left;
     white-space: normal;
     word-break: normal;
     overflow-wrap: normal;
+    background: #ffffff;
 }
 
 .result-box th {
@@ -873,7 +883,7 @@ footer small {
 
     .hero-search {
         min-height: 56px;
-        padding: 6px 6px 6px 14px;
+        padding: 6px 8px 6px 14px;
         border-radius: 28px;
         gap: 8px;
     }
@@ -883,7 +893,7 @@ footer small {
         line-height: 1.35;
         padding: 8px 0;
         height: 22px;
-        max-height: 96px;
+        max-height: 60px;
     }
 
     #sendBtn {
@@ -891,6 +901,7 @@ footer small {
         height: 44px;
         flex: 0 0 44px;
         font-size: 18px;
+        align-self: center;
     }
 
     .floating-sign {
@@ -898,7 +909,7 @@ footer small {
     }
 
     .travel-doodle {
-        right: -3px;
+        right: 4px;
         top: 13%;
         font-size: 21px;
     }
@@ -914,6 +925,18 @@ footer small {
 
     .service-row {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service-item {
+        min-width: 0;
+        gap: 8px;
+        padding: 10px 4px;
+    }
+
+    .service-item strong {
+        font-size: 12px;
+        white-space: normal;
+        word-break: break-word;
     }
 
     .destination-grid {

@@ -4,7 +4,7 @@ let latestAnswerMarkdown = "";
 function adjustInputHeight(el) {
     if (!el) return;
     el.style.height = "auto";
-    const maxHeight = window.innerWidth <= 760 ? 96 : 120;
+    const maxHeight = window.innerWidth <= 760 ? 60 : 120;
     el.style.height = Math.min(el.scrollHeight, maxHeight) + "px";
 }
 
