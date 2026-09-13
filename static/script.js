@@ -38,6 +38,26 @@ function hideError() {
     errorBox.textContent = "";
 }
 
+function wrapMarkdownTables(root) {
+    if (!root) return;
+
+    const tables = root.querySelectorAll("table");
+
+    tables.forEach((table) => {
+        if (table.parentElement && table.parentElement.classList.contains("result-table-wrapper")) {
+            return;
+        }
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "result-table-wrapper";
+
+        if (table.parentNode) {
+            table.parentNode.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        }
+    });
+}
+
 function showResult(answer, threadId) {
     latestAnswerMarkdown = answer;
 
@@ -47,6 +67,7 @@ function showResult(answer, threadId) {
 
     if (typeof marked !== "undefined") {
         resultBox.innerHTML = marked.parse(answer);
+        wrapMarkdownTables(resultBox);
     } else {
         resultBox.innerText = answer;
     }
