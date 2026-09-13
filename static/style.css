@@ -1033,7 +1033,173 @@ footer small {
         background: white;
     }
 
-    .pdf-title {
-        display: block;
+    .pdf-brand-header {
+        display: block !important;
     }
 }
+
+/* ==================================================
+   PDF EXPORT & PRINT STYLING
+   ================================================== */
+
+.pdf-brand-header {
+    display: none;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #087f92;
+}
+
+.pdf-brand-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.pdf-brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #06283a;
+}
+
+.pdf-brand-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #21e6f3;
+    color: #06283a;
+    font-size: 16px;
+}
+
+.pdf-accent {
+    color: #087f92;
+}
+
+.pdf-brand-tagline {
+    font-size: 12px;
+    font-weight: 600;
+    color: #087f92;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.pdf-brand-meta {
+    font-size: 11px;
+    color: #6d7f87;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.pdf-meta-divider {
+    color: #16b8c8;
+}
+
+/* Specific styling applied during html2pdf export */
+.pdf-rendering {
+    background: #ffffff !important;
+    color: #152a35 !important;
+    padding: 20px 24px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.pdf-rendering .pdf-brand-header {
+    display: block !important;
+}
+
+.pdf-rendering .result-table-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    border: 1px solid #dce7e9 !important;
+    border-radius: 8px !important;
+    margin: 14px 0 !important;
+    background: #ffffff !important;
+    contain: none !important;
+    display: block !important;
+}
+
+.pdf-rendering table {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+}
+
+.pdf-rendering th,
+.pdf-rendering td {
+    border: 1px solid #dce7e9 !important;
+    padding: 7px 10px !important;
+    font-size: 11px !important;
+    line-height: 1.45 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+}
+
+.pdf-rendering th {
+    background: #edf8fa !important;
+    color: #08384a !important;
+    font-weight: 700 !important;
+}
+
+.pdf-rendering td {
+    background: #ffffff !important;
+    color: #152a35 !important;
+}
+
+.pdf-rendering h1 {
+    font-size: 22px !important;
+    color: #08384a !important;
+    border-bottom: 2px solid #16b8c8 !important;
+    padding-bottom: 6px !important;
+    margin: 18px 0 10px !important;
+    page-break-after: avoid !important;
+}
+
+.pdf-rendering h2 {
+    font-size: 16px !important;
+    color: #08384a !important;
+    border-left: 3px solid #14b7c8 !important;
+    padding-left: 8px !important;
+    margin: 14px 0 8px !important;
+    page-break-after: avoid !important;
+}
+
+.pdf-rendering h3,
+.pdf-rendering h4 {
+    font-size: 13px !important;
+    color: #08384a !important;
+    margin: 12px 0 6px !important;
+    page-break-after: avoid !important;
+}
+
+.pdf-rendering p,
+.pdf-rendering li {
+    font-size: 11.5px !important;
+    line-height: 1.5 !important;
+    color: #263942 !important;
+}
+
+.pdf-rendering ul,
+.pdf-rendering ol {
+    margin: 6px 0 12px 20px !important;
+}
+
+.pdf-rendering tr {
+    page-break-inside: avoid !important;
+}
+

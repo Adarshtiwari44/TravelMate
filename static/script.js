@@ -70,6 +70,7 @@ function showResult(answer, threadId) {
     const resultSection = document.getElementById("resultSection");
     const resultBox = document.getElementById("resultBox");
     const threadInfo = document.getElementById("threadInfo");
+    const pdfThreadInfo = document.getElementById("pdfThreadInfo");
 
     if (typeof marked !== "undefined") {
         resultBox.innerHTML = marked.parse(answer);
@@ -79,6 +80,10 @@ function showResult(answer, threadId) {
     }
 
     threadInfo.textContent = `Thread ID: ${threadId}`;
+    if (pdfThreadInfo) {
+        pdfThreadInfo.textContent = `Thread ID: ${threadId}`;
+    }
+
     resultSection.classList.remove("hidden");
 
     resultSection.scrollIntoView({
@@ -160,13 +165,18 @@ function downloadPDF() {
     }
 
     const downloadBtn = document.querySelector(".download-btn");
-    const oldText = downloadBtn.textContent;
+    const oldText = downloadBtn ? downloadBtn.textContent : "Download PDF";
 
-    downloadBtn.textContent = "Preparing PDF...";
-    downloadBtn.disabled = true;
+    if (downloadBtn) {
+        downloadBtn.textContent = "Preparing PDF...";
+        downloadBtn.disabled = true;
+    }
+
+    // Apply PDF-specific rendering layout & brand styling during export
+    pdfContent.classList.add("pdf-rendering");
 
     const options = {
-        margin: 0.5,
+        margin: [0.4, 0.4, 0.4, 0.4],
         filename: "tripmate-ai-travel-plan.pdf",
         image: {
             type: "jpeg",
@@ -175,7 +185,9 @@ function downloadPDF() {
         html2canvas: {
             scale: 2,
             useCORS: true,
-            backgroundColor: "#ffffff"
+            backgroundColor: "#ffffff",
+            scrollX: 0,
+            scrollY: 0
         },
         jsPDF: {
             unit: "in",
@@ -183,7 +195,8 @@ function downloadPDF() {
             orientation: "portrait"
         },
         pagebreak: {
-            mode: ["avoid-all", "css", "legacy"]
+            mode: ["css", "legacy"],
+            avoid: ["tr", "h1", "h2", "h3", ".pdf-brand-header", ".result-table-wrapper"]
         }
     };
 
@@ -192,12 +205,18 @@ function downloadPDF() {
         .from(pdfContent)
         .save()
         .then(() => {
-            downloadBtn.textContent = oldText;
-            downloadBtn.disabled = false;
+            pdfContent.classList.remove("pdf-rendering");
+            if (downloadBtn) {
+                downloadBtn.textContent = oldText;
+                downloadBtn.disabled = false;
+            }
         })
-        .catch(() => {
-            downloadBtn.textContent = oldText;
-            downloadBtn.disabled = false;
+        .catch((err) => {
+            pdfContent.classList.remove("pdf-rendering");
+            if (downloadBtn) {
+                downloadBtn.textContent = oldText;
+                downloadBtn.disabled = false;
+            }
             showError("Could not download PDF.");
         });
 }
