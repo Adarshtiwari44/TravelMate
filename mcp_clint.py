@@ -149,4 +149,7 @@ def extract_destination(query: str):
 
     response = llm.invoke(prompt)
 
+    if response.content is None:
+        return query.strip()
+
     return response.content.strip()

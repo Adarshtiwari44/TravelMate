@@ -122,7 +122,7 @@ def weather_agent(state:TravelState):
                 Forecast:
                 {forecast_data}
                 """,
-            "message": [
+            "messages": [
                 AIMessage(
                     content="Weather information fetched"
                 )
