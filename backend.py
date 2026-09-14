@@ -75,7 +75,7 @@ def flight_agent(state: TravelState):
     flight_data = search_flights(query)
 
     return{
-        "flight_results": flight_data,
+        "flight_results": flight_data if flight_data is not None else "No flight results found.",
         "messages": [
             AIMessage(content="Flight results fetched.")
         ],
@@ -93,7 +93,7 @@ def hotel_agent(state: TravelState):
     hotel_results = asyncio.run(tavily_mcp_search(query))
 
     return {
-        "hotel_results": hotel_results,
+        "hotel_results": str(hotel_results) if hotel_results is not None else "No hotel results found.",
         "messages": [ 
             AIMessage(content="Hotel information is fetched.")
         ],
@@ -117,10 +117,10 @@ def weather_agent(state:TravelState):
     return {
         "weather_results": f"""
                 Current Weather:
-                {weather_data}
+                {weather_data if weather_data is not None else "Weather data unavailable."}
 
                 Forecast:
-                {forecast_data}
+                {forecast_data if forecast_data is not None else "Forecast data unavailable."}
                 """,
             "messages": [
                 AIMessage(
@@ -157,8 +157,13 @@ Make the itinerary practical, budget-aware, and easy to follow.
         HumanMessage(content=prompt)
     ])
 
+    itinerary_content = response.content if response.content is not None else "Itinerary could not be generated."
+
+    if response.content is None:
+        response = AIMessage(content=itinerary_content)
+
     return {
-        "itinerary": response.content,
+        "itinerary": itinerary_content,
         "messages": [response],
         "llm_calls": state.get("llm_calls",0)+1
     }
