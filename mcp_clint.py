@@ -23,7 +23,27 @@ llm = ChatGroq(
 
 
 
+import sys
+import shutil
+
 WEATHER_MCP_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "custom_wether_mcp.py")
+
+def get_uv_command_and_args():
+    uv_bin = shutil.which("uv")
+    if uv_bin:
+        return uv_bin, ["run", WEATHER_MCP_PATH]
+    
+    venv_uv_linux = os.path.join(sys.prefix, "bin", "uv")
+    if os.path.isfile(venv_uv_linux):
+        return venv_uv_linux, ["run", WEATHER_MCP_PATH]
+        
+    venv_uv_win = os.path.join(sys.prefix, "Scripts", "uv.exe")
+    if os.path.isfile(venv_uv_win):
+        return venv_uv_win, ["run", WEATHER_MCP_PATH]
+        
+    return sys.executable, [WEATHER_MCP_PATH]
+
+UV_COMMAND, UV_ARGS = get_uv_command_and_args()
 
 client = MultiServerMCPClient(
     {
@@ -34,8 +54,8 @@ client = MultiServerMCPClient(
 
         "weather":{
             "transport": "stdio",
-            "args": ["run", WEATHER_MCP_PATH],
-            "command": "uv",
+            "args": UV_ARGS,
+            "command": UV_COMMAND,
             "env":{
                 "OPENWEATHER_API_KEY": OPENWEATHER_API_KEY
             }
