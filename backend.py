@@ -27,7 +27,7 @@ from langchain_core.messages import(
 from langchain_groq import ChatGroq
 # from tools.tavily_tool import tavily_search
 from tools.filght_tool import search_flights
-from mcp_clint_tavily import tavily_mcp_search
+from mcp_clint import tavily_mcp_search
 
 def get_database_url():
     database_url = os.getenv("DATABASE_URL")
