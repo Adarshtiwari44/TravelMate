@@ -10,9 +10,9 @@ os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 
 load_dotenv()
 
-TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
-OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY") or ""
+OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY") or ""
+GROQ_API_KEY = os.getenv("GROQ_API_KEY") or ""
 
 
 llm = ChatGroq(
@@ -32,7 +32,7 @@ client = MultiServerMCPClient(
 
         "weather":{
             "transport": "stdio",
-            "args": [r"D:\Agentic_ai-Project\TripeMate-Ai\custom_wether_mcp.py"],
+            "args": ["run", r"D:\Agentic_ai-Project\TripeMate-Ai\custom_wether_mcp.py"],
             "command": "uv",
             "env":{
                 "OPENWEATHER_API_KEY": OPENWEATHER_API_KEY
@@ -75,6 +75,8 @@ async def get_tavily_search_tool():
 
 # This function can be used to call the tavily_search tool with a query in backend.py
 async def tavily_mcp_search(query: str):
+    if not query or not isinstance(query, str):
+        return "Query must be a non-empty string."
     await get_tavily_search_tool()
     result = await tavily_search_tool.ainvoke(
         {
@@ -113,6 +115,8 @@ async def initialize_weather_tools():
 
 
 async def wether_mcp_search(city:str):
+    if not city or not isinstance(city, str):
+        return "City must be a non-empty string."
     await initialize_weather_tools()
 
     return await weather_tool.ainvoke(
@@ -123,6 +127,8 @@ async def wether_mcp_search(city:str):
    
 
 async def forecast_mcp_search(city: str):
+    if not city or not isinstance(city, str):
+        return "City must be a non-empty string."
     await initialize_weather_tools()
 
     return await forecast_tool.ainvoke(
@@ -138,6 +144,9 @@ async def forecast_mcp_search(city: str):
 # ==========================================
 
 def extract_destination(query: str):
+    if not query or not isinstance(query, str):
+        return ""
+
     prompt = f"""
     Extract only the destination city or country.
 
@@ -150,6 +159,6 @@ def extract_destination(query: str):
     response = llm.invoke(prompt)
 
     if response.content is None:
-        return query.strip()
+        return query.strip() if (query and isinstance(query, str)) else ""
 
     return response.content.strip()
