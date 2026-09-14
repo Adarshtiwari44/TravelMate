@@ -23,6 +23,8 @@ llm = ChatGroq(
 
 
 
+WEATHER_MCP_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "custom_wether_mcp.py")
+
 client = MultiServerMCPClient(
     {
        "tavily": {
@@ -32,8 +34,8 @@ client = MultiServerMCPClient(
 
         "weather":{
             "transport": "stdio",
-            "args": ["run", r"D:\Agentic_ai-Project\TripeMate-Ai\custom_wether_mcp.py"],
-            "command": "python",
+            "args": ["run", WEATHER_MCP_PATH],
+            "command": "uv",
             "env":{
                 "OPENWEATHER_API_KEY": OPENWEATHER_API_KEY
             }
