@@ -33,7 +33,7 @@ client = MultiServerMCPClient(
         "weather":{
             "transport": "stdio",
             "args": ["run", r"D:\Agentic_ai-Project\TripeMate-Ai\custom_wether_mcp.py"],
-            "command": "uv",
+            "command": "python",
             "env":{
                 "OPENWEATHER_API_KEY": OPENWEATHER_API_KEY
             }
