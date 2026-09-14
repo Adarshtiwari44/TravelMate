@@ -10,6 +10,7 @@ os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 from typing import TypedDict, Annotated
 import operator
 import uuid
+import asyncio
 
 import psycopg
 from psycopg.rows import dict_row
@@ -24,8 +25,9 @@ from langchain_core.messages import(
     SystemMessage,
 )
 from langchain_groq import ChatGroq
-from tools.tavily_tool import tavily_search
+# from tools.tavily_tool import tavily_search
 from tools.filght_tool import search_flights
+from mcp_clint_tavily import tavily_mcp_search
 
 def get_database_url():
     database_url = os.getenv("DATABASE_URL")
@@ -86,11 +88,12 @@ def flight_agent(state: TravelState):
 
 def hotel_agent(state: TravelState):
     query = f"Best hotels for {state['user_query']}"
-    hotel_results = tavily_search(query)
+    # hotel_results = tavily_search(query)
+    hotel_results = asyncio.run(tavily_mcp_search(query))
 
     return {
         "hotel_results": hotel_results,
-        "messages": [
+        "messages": [ 
             AIMessage(content="Hotel information is fetched.")
         ],
         "llm_calls" : state.get("llm_calls",0)+1
